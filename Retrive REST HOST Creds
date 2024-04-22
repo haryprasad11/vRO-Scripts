@@ -1,0 +1,5 @@
+// below script will extract the credentials from the API REST HOST from VRO 
+
+System.debug("" + restHost.authentication.type);
+System.debug("" + JSON.stringify(restHost.authentication.rawAuthProperties));
+ System.debug("");
