@@ -1,0 +1,29 @@
+output from action item: "GETADCOMPUTERMATCHINGSTRING":
+Inputs:
+arg_nameToMatch,
+arg_domainController
+Output:
+arg_out_ADOUOut
+
+"actionResult = System.getModule("com.dedicatedcloud.library.activedirectory").getADComputerMatchingString(arg_nameToMatch,arg_domainController);"
+
+Before this call we need to call the Action item to get the Current AD OU and then will pass the same value to following script file.
+
+Inputs required :
+wfNewOuToMove can be set as Static (Constant)
+wfServerName
+static value: Ad_Host
+
+//ActiveDirectory.rename(arg_out_ADOUOut.distinguishedName , "CN="+wfServerName, "OU=Windows,OU=VDI,DC=global,DC=trafigura,DC=com", Ad_Host);
+System.log("OU Details on wfNewOUToMove is: "+wfNewOuToMove);
+System.sleep(300*1000)
+ActiveDirectory.rename(arg_out_ADOUOut.distinguishedName , "CN="+wfServerName, wfNewOuToMove, Ad_Host);
+System.sleep(30*1000)
+System.log(wfServerName + "had moved from"+arg_out_ADOUOut.distinguishedName + "to the OU: "+wfNewOuToMove);
+
+/*var temp = ActiveDirectory.getComputerAD(vmName);
+System.log("Searching for computer: " + vmName)
+System.log("Found computer: " + temp);
+
+//ActiveDirectory.rename(temp.distinguishedName , "CN="+vmName , "OU=VDI,DC=global,DC=trafigura,DC=com" , Ad_Host);
+*/
